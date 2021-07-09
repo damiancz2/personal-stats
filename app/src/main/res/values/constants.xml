@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Personal Stats</string>
+    <string name="submit">Submit</string>
+    <string name="default_question">Here should be your question</string>
+    <string name="submitted">Submitted</string>
+    <string name="back_to_main">Back to main menu</string>
+    <string name="answer_questions">Answer questions</string>
+    <string name="add_question">Add question</string>
+    <string name="new_questionnaire">New questionnaire</string>
+    <string name="type_question">Type in your question</string>
+    <string name="next">Next</string>
+</resources>
