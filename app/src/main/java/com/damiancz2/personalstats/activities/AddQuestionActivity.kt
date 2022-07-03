@@ -65,6 +65,7 @@ class AddQuestionActivity : AppCompatActivity() {
             R.id.NumberAnswerTypeRadioButton -> AnswerType.NUMBER
             R.id.TextAnswerTypeRadioButton -> AnswerType.TEXT
             R.id.TimeAnswerTypeRadioButton -> AnswerType.TIME
+            R.id.YesNoAnswerTypeRadioButton -> AnswerType.YESNO
             else -> AnswerType.TEXT
         }
     }

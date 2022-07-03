@@ -9,22 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloWorld">
-        <activity android:name="com.damiancz2.personalstats.activities.EditQuestionnaireActivity"/>
-        <activity android:name="com.damiancz2.personalstats.activities.MainActivity">
+        <activity android:name=".activities.answer.AnswerYesNoQuestionActivity"></activity>
+        <activity android:name=".activities.EditQuestionnaireActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.damiancz2.personalstats.activities.NewQuestionnaireActivity" />
-        <activity android:name="com.damiancz2.personalstats.activities.ViewQuestionsActivity" />
-        <activity android:name="com.damiancz2.personalstats.activities.ViewAnswersActivity" />
-        <activity android:name="com.damiancz2.personalstats.activities.answer.AnswerTextQuestionActivity" />
-        <activity android:name="com.damiancz2.personalstats.activities.answer.AnswerTimeQuestionActivity" />
-        <activity android:name="com.damiancz2.personalstats.activities.answer.AnswerNumberQuestionActivity" />
-        <activity android:name="com.damiancz2.personalstats.activities.AddQuestionActivity" />
-        <activity android:name="com.damiancz2.personalstats.activities.SubmittedActivity" />
+        <activity android:name=".activities.NewQuestionnaireActivity" />
+        <activity android:name=".activities.ViewQuestionsActivity" />
+        <activity android:name=".activities.ViewAnswersActivity" />
+        <activity android:name=".activities.answer.AnswerTextQuestionActivity" />
+        <activity android:name=".activities.answer.AnswerTimeQuestionActivity" />
+        <activity android:name=".activities.answer.AnswerNumberQuestionActivity" />
+        <activity android:name=".activities.AddQuestionActivity" />
+        <activity android:name=".activities.SubmittedActivity" />
     </application>
 
 </manifest>
