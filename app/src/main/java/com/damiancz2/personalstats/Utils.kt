@@ -11,14 +11,14 @@ import java.io.File
 
 val GSON: Gson = GsonBuilder().setPrettyPrinting().create()
 
-fun saveAnswers(context: Context, questionnaireId: String, questionId: String, answers: List<Answer>) {
+fun saveAnswers(context: Context, questionnaireId: Int, questionId: String, answers: List<Answer>) {
     val file = getAnswersFile(context, questionnaireId, questionId)
     getQuestionnaireAnswersDirectory(context, questionnaireId).mkdirs()
     val answersString: String = GSON.toJson(answers)
     file.writeText(answersString)
 }
 
-fun getAnswers(context: Context, questionnaireId: String, questionId: String): ArrayList<Answer> {
+fun getAnswers(context: Context, questionnaireId: Int, questionId: String): ArrayList<Answer> {
     val file = getAnswersFile(context, questionnaireId, questionId)
     getQuestionnaireAnswersDirectory(context, questionnaireId).mkdirs()
     if (file.exists()) {
@@ -30,14 +30,14 @@ fun getAnswers(context: Context, questionnaireId: String, questionId: String): A
     }
 }
 
-fun saveQuestions(context: Context, questionnaireId: String, questions: List<Question>) {
+fun saveQuestions(context: Context, questionnaireId: Int, questions: List<Question>) {
     val file = getQuestionsFile(context, questionnaireId)
     getQuestionnaireDirectory(context, questionnaireId).mkdirs()
     val questionsString: String = GSON.toJson(questions)
     file.writeText(questionsString)
 }
 
-fun getQuestions(context: Context, questionnaireId: String): ArrayList<Question> {
+fun getQuestions(context: Context, questionnaireId: Int): ArrayList<Question> {
     val file = getQuestionsFile(context, questionnaireId)
     getQuestionnaireDirectory(context, questionnaireId).mkdirs()
     if (file.exists()) {
@@ -70,18 +70,18 @@ private fun getQuestionnairesFile(context: Context): File {
     return File(context.filesDir.absolutePath + "/questionnaires.txt")
 }
 
-private fun getQuestionsFile(context: Context, questionnaireId: String): File {
+private fun getQuestionsFile(context: Context, questionnaireId: Int): File {
     return File(context.filesDir.absolutePath + "/questionnaires/" + questionnaireId + "/questions.txt")
 }
 
-private fun getAnswersFile(context: Context, questionnaireId: String, questionId: String) : File {
+private fun getAnswersFile(context: Context, questionnaireId: Int, questionId: String) : File {
     return File(context.filesDir.absolutePath + "/questionnaires/" + questionnaireId + "/answers/" + questionId + ".txt")
 }
 
-private fun getQuestionnaireDirectory(context: Context, questionnaireId: String) : File {
+private fun getQuestionnaireDirectory(context: Context, questionnaireId: Int) : File {
     return File(context.filesDir.absolutePath + "/questionnaires/" + questionnaireId)
 }
 
-private fun getQuestionnaireAnswersDirectory(context: Context, questionnaireId: String) : File {
+private fun getQuestionnaireAnswersDirectory(context: Context, questionnaireId: Int) : File {
     return File(context.filesDir.absolutePath + "/questionnaires/" + questionnaireId + "/answers")
 }

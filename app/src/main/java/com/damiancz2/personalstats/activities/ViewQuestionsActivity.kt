@@ -17,9 +17,9 @@ class ViewQuestionsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_questions)
 
         val extras = intent.extras!!
-        val questionnaireId = extras.getString(QUESTIONNAIRE_ID)
+        val questionnaireId = extras.getInt(QUESTIONNAIRE_ID)
 
-        val questions: ArrayList<Question> = getQuestions(this, questionnaireId!!)
+        val questions: ArrayList<Question> = getQuestions(this, questionnaireId)
         val adapter = QuestionAdapter(questions, questionnaireId!!)
         val questionListView : RecyclerView = findViewById(R.id.QuestionListView)
         questionListView.setHasFixedSize(true)

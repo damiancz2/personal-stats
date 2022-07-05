@@ -16,7 +16,7 @@ import com.damiancz2.personalstats.model.Question
 
 
 class QuestionAdapter(private val data: List<Question>,
-                      private val questionnaireId: String)
+                      private val questionnaireId: Int)
     : RecyclerView.Adapter<QuestionAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,13 +26,13 @@ class QuestionAdapter(private val data: List<Question>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val question: Question = data.get(position)
+        val question: Question = data[position]
         holder.textView.text = question.question
         holder.relativeLayout.setOnClickListener {
             val intent = Intent(holder.relativeLayout.context, ViewAnswersActivity::class.java)
             val bundle = Bundle()
             bundle.putString(QUESTION_ID, question.id)
-            bundle.putString(QUESTIONNAIRE_ID, questionnaireId)
+            bundle.putInt(QUESTIONNAIRE_ID, questionnaireId)
             intent.putExtras(bundle)
             holder.relativeLayout.context.startActivity(intent)
         }

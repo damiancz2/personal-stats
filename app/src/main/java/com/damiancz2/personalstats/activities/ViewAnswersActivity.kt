@@ -28,8 +28,8 @@ class ViewAnswersActivity : AppCompatActivity() {
         if (intent.extras != null) {
             val extras: Bundle = intent.extras!!
             val questionId = extras.getString(QUESTION_ID)
-            val questionnaireId = extras.getString(QUESTIONNAIRE_ID)
-            val answers : ArrayList<Answer> = getAnswers(this, questionnaireId!!, questionId!!)
+            val questionnaireId = extras.getInt(QUESTIONNAIRE_ID)
+            val answers : ArrayList<Answer> = getAnswers(this, questionnaireId, questionId!!)
             val filteredAnswers: List<Answer> = answers
                 .filter { answer -> answer.questionId == questionId }
             val adapter = AnswerAdapter(filteredAnswers)

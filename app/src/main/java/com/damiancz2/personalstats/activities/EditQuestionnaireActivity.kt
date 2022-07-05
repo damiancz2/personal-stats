@@ -14,11 +14,11 @@ class EditQuestionnaireActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_questionnaire)
         val questionnaireName: String?
-        val questionnaireId: String?
+        val questionnaireId: Int
         val bundle: Bundle
         if (intent.extras != null) {
             bundle = intent.extras!!
-            questionnaireId = bundle.getString(QUESTIONNAIRE_ID)
+            questionnaireId = bundle.getInt(QUESTIONNAIRE_ID)
             questionnaireName = bundle.getString(QUESTIONNAIRE_NAME)
 
             val textView: TextView = findViewById(R.id.QuestionnaireNameInputTextBox)
@@ -27,7 +27,8 @@ class EditQuestionnaireActivity : AppCompatActivity() {
             val addQuestionButton: Button = findViewById(R.id.AddQuestionButton)
             addQuestionButton.setOnClickListener {
                 val intent = Intent(this, AddQuestionActivity::class.java)
-                intent.putExtras(bundle)
+                intent.putExtra(QUESTIONNAIRE_NAME, questionnaireName)
+                intent.putExtra(QUESTIONNAIRE_ID, questionnaireId)
                 startActivity(intent)
             }
         }

@@ -1,6 +1,6 @@
 package com.damiancz2.personalstats.model
 
 class Questionnaire(
-    val id: String,
+    val id: Int,
     val name: String) {
 }

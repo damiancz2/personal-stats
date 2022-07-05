@@ -72,7 +72,7 @@ class QuestionnaireAdapter(private var data: List<Questionnaire>,
         holder.viewButton.setOnClickListener {
             val intent = Intent(holder.cardView.context, ViewQuestionsActivity::class.java)
             val extras = Bundle()
-            extras.putString(QUESTIONNAIRE_ID, questionnaire.id)
+            extras.putInt(QUESTIONNAIRE_ID, questionnaire.id)
             intent.putExtras(extras)
             holder.cardView.context.startActivity(intent)
         }
@@ -86,7 +86,7 @@ class QuestionnaireAdapter(private var data: List<Questionnaire>,
             val intent =
                 Intent(holder.cardView.context, EditQuestionnaireActivity::class.java)
             val bundle = Bundle()
-            bundle.putString(QUESTIONNAIRE_ID, questionnaire.id)
+            bundle.putInt(QUESTIONNAIRE_ID, questionnaire.id)
             bundle.putString(QUESTIONNAIRE_NAME, questionnaire.name)
             intent.putExtras(bundle)
             holder.cardView.context.startActivity(intent)
@@ -108,7 +108,7 @@ class QuestionnaireAdapter(private var data: List<Questionnaire>,
                 val bundle: Bundle = Bundle()
                 bundle.putString(QUESTIONS, gson.toJson(questionList))
                 bundle.putInt(INDEX, 0)
-                bundle.putString(QUESTIONNAIRE_ID, questionnaire.id)
+                bundle.putInt(QUESTIONNAIRE_ID, questionnaire.id)
                 intent = questionList[0].answerType.createIntent(holder.cardView.context)
                 intent.putExtras(bundle)
             }

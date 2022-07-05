@@ -10,7 +10,6 @@ import com.damiancz2.personalstats.getQuestionnaires
 import com.damiancz2.personalstats.model.Questionnaire
 import com.damiancz2.personalstats.saveQuestionnaires
 import java.util.ArrayList
-import java.util.UUID
 
 class NewQuestionnaireActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +27,7 @@ class NewQuestionnaireActivity : AppCompatActivity() {
     fun save() {
         val questionnaireList: ArrayList<Questionnaire> = getQuestionnaires(this)
 
-        val questionnaireId = UUID.randomUUID().toString()
+        val questionnaireId = System.currentTimeMillis().toInt()
 
         val inputText : EditText = findViewById(R.id.QuestionnaireNameInputTextBox)
         val questionnaire = Questionnaire(

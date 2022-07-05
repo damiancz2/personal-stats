@@ -61,7 +61,7 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
 
     private fun save(questionId: String) {
         val bundle = intent.extras!!
-        val questionnaireId = bundle.getString(QUESTIONNAIRE_ID)
+        val questionnaireId = bundle.getInt(QUESTIONNAIRE_ID)
 
         val inputView: V = findViewById(getInputViewId())
         val answers: ArrayList<Answer> = getAnswers(this, questionnaireId!!, questionId)
@@ -118,10 +118,10 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
     private fun configureDeleteButton(bundle: Bundle, questions: ArrayList<Question>, index: Int) {
         val isLast: Boolean = index >= questions.size - 1
         val deleteButton: Button = findViewById(R.id.DeleteButton)
-        val questionnaireId: String? = bundle.getString(QUESTIONNAIRE_ID)
+        val questionnaireId: Int = bundle.getInt(QUESTIONNAIRE_ID)
         deleteButton.setOnClickListener{
             questions.removeAt(index)
-            saveQuestions(this, questionnaireId!!, questions)
+            saveQuestions(this, questionnaireId, questions)
             val jsonQuestions : String = gson.toJson(questions)
             bundle.putString(QUESTIONS, jsonQuestions)
             if (isLast) {

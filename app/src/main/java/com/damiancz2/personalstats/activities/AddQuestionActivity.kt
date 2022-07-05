@@ -26,7 +26,7 @@ class AddQuestionActivity : AppCompatActivity() {
 
         addQuestionsButton.setOnClickListener{
             saveQuestion()
-            val questionnaireId = intent.getStringExtra(QUESTIONNAIRE_ID)
+            val questionnaireId = intent.getIntExtra(QUESTIONNAIRE_ID, 1)
             val questionnaireName = intent.getStringExtra(QUESTIONNAIRE_NAME)
             val intent = Intent(this, EditQuestionnaireActivity::class.java)
             intent.putExtra(QUESTIONNAIRE_ID, questionnaireId)
@@ -37,7 +37,7 @@ class AddQuestionActivity : AppCompatActivity() {
 
     private fun saveQuestion() {
         val extras = intent.extras!!
-        val questionnaireId = extras.getString(QUESTIONNAIRE_ID)
+        val questionnaireId = extras.getInt(QUESTIONNAIRE_ID)
 
         val inputText : EditText = findViewById(R.id.AddQuestionInputTextBox)
         val question = inputText.text.toString()
@@ -45,7 +45,7 @@ class AddQuestionActivity : AppCompatActivity() {
         val radioGroup : RadioGroup = findViewById(R.id.AnswerTypeRadioGroup)
         val checkedButtonId: Int = radioGroup.checkedRadioButtonId
 
-        val questionList: ArrayList<Question> = getQuestions(this, questionnaireId!!)
+        val questionList: ArrayList<Question> = getQuestions(this, questionnaireId)
 
         val questionId = UUID.randomUUID().toString()
 
