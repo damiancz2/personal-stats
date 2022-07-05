@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.damiancz2.personalstats.adapter.QuestionnaireAdapter
+import com.damiancz2.personalstats.deleteQuestionnaireDirectory
 import com.damiancz2.personalstats.getQuestionnaires
 import com.damiancz2.personalstats.model.Questionnaire
 import com.damiancz2.personalstats.saveQuestionnaires
@@ -30,6 +31,7 @@ class AreYouSureDialog(private val questionnaire: Questionnaire,
             questionnaires.filter { qnare -> qnare.id != questionnaire.id }
         adapter.setQuestionnaires(resultQuestionnaires)
         saveQuestionnaires(requireContext(), resultQuestionnaires)
+        deleteQuestionnaireDirectory(requireContext(), questionnaire.id)
     }
 
 }

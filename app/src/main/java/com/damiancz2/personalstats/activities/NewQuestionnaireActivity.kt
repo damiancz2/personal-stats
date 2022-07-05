@@ -36,6 +36,5 @@ class NewQuestionnaireActivity : AppCompatActivity() {
         )
         questionnaireList.add(questionnaire)
         saveQuestionnaires(this, questionnaireList)
-
     }
 }

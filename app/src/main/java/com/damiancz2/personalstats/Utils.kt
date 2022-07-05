@@ -66,6 +66,21 @@ fun getQuestionnaires(context: Context): ArrayList<Questionnaire> {
     }
 }
 
+fun deleteQuestionnaireDirectory(context: Context, questionnaireId: Int) {
+    val questionnaireDirectory = getQuestionnaireDirectory(context, questionnaireId)
+    deleteRecursive(questionnaireDirectory)
+}
+
+private fun deleteRecursive(fileOrDirectory: File) {
+    if (fileOrDirectory.isDirectory) {
+        for (file in fileOrDirectory.listFiles()) {
+            deleteRecursive(file)
+        }
+    }
+
+    fileOrDirectory.delete()
+}
+
 private fun getQuestionnairesFile(context: Context): File {
     return File(context.filesDir.absolutePath + "/questionnaires.txt")
 }
