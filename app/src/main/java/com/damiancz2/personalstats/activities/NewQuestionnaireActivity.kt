@@ -10,6 +10,7 @@ import com.damiancz2.personalstats.getQuestionnaires
 import com.damiancz2.personalstats.model.Questionnaire
 import com.damiancz2.personalstats.saveQuestionnaires
 import java.util.ArrayList
+import java.util.stream.Collectors
 
 class NewQuestionnaireActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,16 +26,32 @@ class NewQuestionnaireActivity : AppCompatActivity() {
     }
 
     fun save() {
-        val questionnaireList: ArrayList<Questionnaire> = getQuestionnaires(this)
-
-        val questionnaireId = System.currentTimeMillis().toInt()
+        val questionnaireId = createUniqueQuestionnaireId()
 
         val inputText : EditText = findViewById(R.id.QuestionnaireNameInputTextBox)
         val questionnaire = Questionnaire(
             id = questionnaireId,
             name = inputText.text.toString()
         )
+        addToSavedQuestionnaires(questionnaire)
+    }
+
+    private fun addToSavedQuestionnaires(questionnaire: Questionnaire) {
+        val questionnaireList: ArrayList<Questionnaire> = getQuestionnaires(this)
         questionnaireList.add(questionnaire)
         saveQuestionnaires(this, questionnaireList)
+    }
+
+    private fun createUniqueQuestionnaireId(): Int {
+        val maxCurrent: Int? = getQuestionnaires(this).stream()
+            .map{q -> q.id}
+            .collect(Collectors.toSet())
+            .maxOrNull()
+
+        return if (maxCurrent == null) {
+            1
+        } else {
+            maxCurrent + 1
+        }
     }
 }
