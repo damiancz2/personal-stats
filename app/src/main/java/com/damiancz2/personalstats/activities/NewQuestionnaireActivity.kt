@@ -1,14 +1,21 @@
 package com.damiancz2.personalstats.activities
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.damiancz2.personalstats.QUESTIONNAIRE_ID
+import com.damiancz2.personalstats.QUESTIONNAIRE_NAME
+import com.damiancz2.personalstats.QuestionnaireReminderReceiver
 import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.getQuestionnaires
 import com.damiancz2.personalstats.model.Questionnaire
 import com.damiancz2.personalstats.saveQuestionnaires
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.util.ArrayList
 import java.util.stream.Collectors
 
@@ -33,6 +40,7 @@ class NewQuestionnaireActivity : AppCompatActivity() {
             id = questionnaireId,
             name = inputText.text.toString()
         )
+        setNotifications(questionnaire)
         addToSavedQuestionnaires(questionnaire)
     }
 
@@ -53,5 +61,27 @@ class NewQuestionnaireActivity : AppCompatActivity() {
         } else {
             maxCurrent + 1
         }
+    }
+
+    private fun setNotifications(questionnaire: Questionnaire) {
+        val reminderIntent = Intent(this, QuestionnaireReminderReceiver::class.java)
+        reminderIntent.putExtra(QUESTIONNAIRE_ID, questionnaire.id)
+        reminderIntent.putExtra(QUESTIONNAIRE_NAME, questionnaire.name)
+        val pendingIntent: PendingIntent = PendingIntent
+            .getBroadcast(this, questionnaire.id, reminderIntent, 0)
+
+        val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+
+        val day: Long = 24 * 60 * 60 * 1000
+
+        val today = LocalDateTime.now()
+            .withHour(12)
+            .withMinute(0)
+            .withSecond(0)
+            .withNano(0)
+
+        val firstNotificationTime = today.toEpochSecond(ZoneOffset.UTC)
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstNotificationTime, day, pendingIntent)
     }
 }
