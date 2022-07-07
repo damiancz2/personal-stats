@@ -31,6 +31,7 @@ class AddQuestionActivity : AppCompatActivity() {
             val intent = Intent(this, EditQuestionnaireActivity::class.java)
             intent.putExtra(QUESTIONNAIRE_ID, questionnaireId)
             intent.putExtra(QUESTIONNAIRE_NAME, questionnaireName)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
     }
