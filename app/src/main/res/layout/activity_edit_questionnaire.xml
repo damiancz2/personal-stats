@@ -24,9 +24,7 @@
         android:id="@+id/QuestionnaireNameInputTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="100dp"
         android:textSize="25sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-condensed-light"
@@ -35,4 +33,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/QuestionnaireNameInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/btnEditQuestionnaireName"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/QuestionnaireNameInputTextBox"
+        app:layout_constraintStart_toEndOf="@+id/QuestionnaireNameInputTextBox"
+        app:layout_constraintTop_toTopOf="@+id/QuestionnaireNameInputTextBox"
+        android:src="@drawable/ic_edit" />
+
+    <ImageView
+        android:id="@+id/btnApproveQuestionnaireName"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/QuestionnaireNameInputEditText"
+        app:layout_constraintStart_toEndOf="@+id/QuestionnaireNameInputEditText"
+        app:layout_constraintTop_toTopOf="@+id/QuestionnaireNameInputEditText"
+        android:src="@drawable/ic_tick"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
