@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.QUESTION_ID
@@ -28,13 +28,13 @@ class QuestionAdapter(private val data: List<Question>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val question: Question = data[position]
         holder.textView.text = question.question
-        holder.relativeLayout.setOnClickListener {
-            val intent = Intent(holder.relativeLayout.context, ViewAnswersActivity::class.java)
+        holder.cardView.setOnClickListener {
+            val intent = Intent(holder.cardView.context, ViewAnswersActivity::class.java)
             val bundle = Bundle()
             bundle.putString(QUESTION_ID, question.id)
             bundle.putInt(QUESTIONNAIRE_ID, questionnaireId)
             intent.putExtras(bundle)
-            holder.relativeLayout.context.startActivity(intent)
+            holder.cardView.context.startActivity(intent)
         }
     }
 
@@ -44,6 +44,6 @@ class QuestionAdapter(private val data: List<Question>,
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.findViewById(R.id.SingleQuestion)
-        val relativeLayout: RelativeLayout = itemView.findViewById(R.id.relativeLayoutQuestion)
+        val cardView: CardView = itemView.findViewById(R.id.cardViewQuestion)
     }
 }

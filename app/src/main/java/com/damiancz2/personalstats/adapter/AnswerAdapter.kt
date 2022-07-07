@@ -16,7 +16,7 @@ class AnswerAdapter (private val data: List<Answer>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val listItem: View = layoutInflater.inflate(R.layout.list_item, parent, false)
+        val listItem: View = layoutInflater.inflate(R.layout.list_answer, parent, false)
         return ViewHolder(listItem)
     }
 

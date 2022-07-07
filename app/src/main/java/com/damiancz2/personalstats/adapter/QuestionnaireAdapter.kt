@@ -123,7 +123,7 @@ class QuestionnaireAdapter(private var data: List<Questionnaire>,
         val answerButton: ImageView = itemView.findViewById(R.id.imageViewAnswer)
         val viewButton: ImageView = itemView.findViewById(R.id.imageViewView)
         val deleteButton: ImageView = itemView.findViewById(R.id.imageViewDelete)
-        val cardView: CardView = itemView.findViewById(R.id.relativeLayoutQuestionnaire)
+        val cardView: CardView = itemView.findViewById(R.id.cardViewQuestionnaire)
 
     }
 }
