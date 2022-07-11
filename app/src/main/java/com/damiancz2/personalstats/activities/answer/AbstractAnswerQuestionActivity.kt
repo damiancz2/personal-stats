@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
+
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
     override fun onCreate(savedInstanceState: Bundle?) {

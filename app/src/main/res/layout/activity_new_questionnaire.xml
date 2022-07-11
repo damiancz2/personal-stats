@@ -7,7 +7,7 @@
     tools:context="com.damiancz2.personalstats.activities.NewQuestionnaireActivity">
 
     <Button
-        android:id="@+id/SubmitButton"
+        android:id="@+id/NewQuestionnaireSubmitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/QuestionnaireNameInputTextBox"
+        android:id="@+id/NewQuestionnaireNameInputTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"

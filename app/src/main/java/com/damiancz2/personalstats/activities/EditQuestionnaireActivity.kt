@@ -27,7 +27,7 @@ class EditQuestionnaireActivity : AppCompatActivity() {
             questionnaireId = bundle.getInt(QUESTIONNAIRE_ID)
             questionnaireName = bundle.getString(QUESTIONNAIRE_NAME)
 
-            val textView: TextView = findViewById(R.id.QuestionnaireNameInputTextBox)
+            val textView: TextView = findViewById(R.id.EditQuestionnaireNameTextBox)
             val editText: EditText = findViewById(R.id.QuestionnaireNameInputEditText)
 
             textView.text = questionnaireName
@@ -63,6 +63,12 @@ class EditQuestionnaireActivity : AppCompatActivity() {
                     editQuestionButton.visibility = View.VISIBLE
                     textView.visibility = View.VISIBLE
                 }
+            }
+
+            val backToMainButton: Button = findViewById(R.id.BackToMainEditQuestionnaire)
+            backToMainButton.setOnClickListener{
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         }
 

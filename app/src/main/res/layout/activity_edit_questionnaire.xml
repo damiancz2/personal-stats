@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/QuestionnaireNameInputTextBox"
+        android:id="@+id/EditQuestionnaireNameTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -54,9 +54,9 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/QuestionnaireNameInputTextBox"
-        app:layout_constraintStart_toEndOf="@+id/QuestionnaireNameInputTextBox"
-        app:layout_constraintTop_toTopOf="@+id/QuestionnaireNameInputTextBox"
+        app:layout_constraintBottom_toBottomOf="@+id/EditQuestionnaireNameTextBox"
+        app:layout_constraintStart_toEndOf="@+id/EditQuestionnaireNameTextBox"
+        app:layout_constraintTop_toTopOf="@+id/EditQuestionnaireNameTextBox"
         android:src="@drawable/ic_edit" />
 
     <ImageView
@@ -69,5 +69,15 @@
         app:layout_constraintTop_toTopOf="@+id/QuestionnaireNameInputEditText"
         android:src="@drawable/ic_tick"
         android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/BackToMainEditQuestionnaire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="50dp"
+        android:text="Back to main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

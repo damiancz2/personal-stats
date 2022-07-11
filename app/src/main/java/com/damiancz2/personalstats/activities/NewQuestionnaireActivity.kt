@@ -24,7 +24,7 @@ class NewQuestionnaireActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_questionnaire)
 
-        val submitButton: Button = findViewById(R.id.SubmitButton)
+        val submitButton: Button = findViewById(R.id.NewQuestionnaireSubmitButton)
         submitButton.setOnClickListener{
             val questionnaire: Questionnaire = save()
             val intent = Intent(this, EditQuestionnaireActivity::class.java)
@@ -34,10 +34,10 @@ class NewQuestionnaireActivity : AppCompatActivity() {
         }
     }
 
-    fun save(): Questionnaire {
+    private fun save(): Questionnaire {
         val questionnaireId = createUniqueQuestionnaireId()
 
-        val inputText : EditText = findViewById(R.id.QuestionnaireNameInputTextBox)
+        val inputText : EditText = findViewById(R.id.NewQuestionnaireNameInputTextBox)
         val questionnaire = Questionnaire(
             id = questionnaireId,
             name = inputText.text.toString()
