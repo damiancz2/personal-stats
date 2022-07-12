@@ -10,15 +10,20 @@ import androidx.core.app.NotificationManagerCompat
 import com.damiancz2.personalstats.activities.SubmittedActivity
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class QuestionnaireReminderReceiver: BroadcastReceiver() {
+
+    @Inject lateinit var questionManager: QuestionManager
 
     val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val questionnaireName = intent!!.getStringExtra(QUESTIONNAIRE_NAME)
         val questionnaireId = intent.extras!!.getInt(QUESTIONNAIRE_ID)
-        val questions = getQuestions(context!!, questionnaireId)
+        val questions = questionManager.getQuestions(context!!, questionnaireId)
 
         val goToQuestionnaireIntent: Intent
         if (questions.size == 0) {

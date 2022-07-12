@@ -8,15 +8,18 @@ import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.QUESTIONNAIRE_NAME
+import com.damiancz2.personalstats.QuestionManager
 import com.damiancz2.personalstats.R
-import com.damiancz2.personalstats.getQuestions
 import com.damiancz2.personalstats.model.AnswerType
 import com.damiancz2.personalstats.model.Question
-import com.damiancz2.personalstats.saveQuestions
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.UUID
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class AddQuestionActivity : AppCompatActivity() {
+
+    @Inject lateinit var questionManager: QuestionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +49,7 @@ class AddQuestionActivity : AppCompatActivity() {
         val radioGroup : RadioGroup = findViewById(R.id.AnswerTypeRadioGroup)
         val checkedButtonId: Int = radioGroup.checkedRadioButtonId
 
-        val questionList: ArrayList<Question> = getQuestions(this, questionnaireId)
+        val questionList: ArrayList<Question> = questionManager.getQuestions(this, questionnaireId)
 
         val questionId = UUID.randomUUID().toString()
 
@@ -58,7 +61,7 @@ class AddQuestionActivity : AppCompatActivity() {
 
         questionList.add(sampleQuestion)
 
-        saveQuestions(this, questionnaireId, questionList)
+        questionManager.saveQuestions(this, questionnaireId, questionList)
     }
 
     private fun getAnswerType(buttonId: Int) : AnswerType {

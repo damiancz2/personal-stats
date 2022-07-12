@@ -2,18 +2,21 @@ package com.damiancz2.personalstats.activities.answer
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.damiancz2.personalstats.AnswerManager
+import com.damiancz2.personalstats.INDEX
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
+import com.damiancz2.personalstats.QUESTIONS
+import com.damiancz2.personalstats.QuestionManager
 import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.activities.SubmittedActivity
 import com.damiancz2.personalstats.model.Answer
 import com.damiancz2.personalstats.model.AnswerType
 import com.damiancz2.personalstats.model.Question
-import com.damiancz2.personalstats.saveQuestions
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -23,14 +26,19 @@ import java.util.UUID
 import javax.inject.Inject
 
 abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
+    private val TAG = "AbstractAnswerQuestionActivity"
 
-    @Inject
-    lateinit var answerManager : AnswerManager
+    @Inject lateinit var questionManager : QuestionManager
+    @Inject lateinit var answerManager : AnswerManager
 
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        Log.i(TAG, "Answer Manager: " + answerManager)
+        Log.i(TAG, "Question Manager: " + questionManager)
         setContentView(getLayout())
 
         val questions: ArrayList<Question>
@@ -125,7 +133,7 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
         val questionnaireId: Int = bundle.getInt(QUESTIONNAIRE_ID)
         deleteButton.setOnClickListener{
             questions.removeAt(index)
-            saveQuestions(this, questionnaireId, questions)
+            questionManager.saveQuestions(this, questionnaireId, questions)
             val jsonQuestions : String = gson.toJson(questions)
             bundle.putString(QUESTIONS, jsonQuestions)
             if (isLast) {
@@ -154,9 +162,4 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
     abstract fun getInputViewId() : Int
 
     abstract fun getValue(inputView : V) : String
-
-    companion object {
-        const val QUESTIONS = "questions"
-        const val INDEX = "index"
-    }
 }

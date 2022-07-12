@@ -10,28 +10,36 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.damiancz2.personalstats.AdapterEntryPoint
+import com.damiancz2.personalstats.INDEX
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.QUESTIONNAIRE_NAME
+import com.damiancz2.personalstats.QUESTIONS
+import com.damiancz2.personalstats.QuestionManager
 import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.activities.EditQuestionnaireActivity
 import com.damiancz2.personalstats.activities.SubmittedActivity
 import com.damiancz2.personalstats.activities.ViewQuestionsActivity
-import com.damiancz2.personalstats.activities.answer.AbstractAnswerQuestionActivity.Companion.INDEX
-import com.damiancz2.personalstats.activities.answer.AbstractAnswerQuestionActivity.Companion.QUESTIONS
 import com.damiancz2.personalstats.dialogs.AreYouSureDialog
-import com.damiancz2.personalstats.getQuestions
 import com.damiancz2.personalstats.model.Question
 import com.damiancz2.personalstats.model.Questionnaire
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import dagger.hilt.android.EntryPointAccessors
+import javax.inject.Inject
 
 class QuestionnaireAdapter(private var data: List<Questionnaire>,
                            private val fragmentManager: FragmentManager)
     : RecyclerView.Adapter<QuestionnaireAdapter.ViewHolder>() {
 
+    @Inject lateinit var questionManager: QuestionManager
+
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val myEntryPoint = EntryPointAccessors.fromApplication(parent.context, AdapterEntryPoint::class.java)
+        questionManager = myEntryPoint.getQuestionManager()
+
         val layoutInflater = LayoutInflater.from(parent.context)
         val listItem: View = layoutInflater.inflate(R.layout.list_questionnaire, parent, false)
         return ViewHolder(listItem)
@@ -99,7 +107,7 @@ class QuestionnaireAdapter(private var data: List<Questionnaire>,
     ) {
         holder.answerButton.setOnClickListener {
 
-            val questionList: ArrayList<Question> = getQuestions(holder.cardView.context, questionnaire.id)
+            val questionList: ArrayList<Question> = questionManager.getQuestions(holder.cardView.context, questionnaire.id)
 
             val intent: Intent
             if (questionList.size == 0) {

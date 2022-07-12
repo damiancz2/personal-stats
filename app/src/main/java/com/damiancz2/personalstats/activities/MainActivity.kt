@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.adapter.QuestionnaireAdapter
 import com.damiancz2.personalstats.getQuestionnaires
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
