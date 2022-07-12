@@ -9,16 +9,20 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.QUESTIONNAIRE_NAME
+import com.damiancz2.personalstats.QuestionnaireManager
 import com.damiancz2.personalstats.QuestionnaireReminderReceiver
 import com.damiancz2.personalstats.R
-import com.damiancz2.personalstats.getQuestionnaires
 import com.damiancz2.personalstats.model.Questionnaire
-import com.damiancz2.personalstats.saveQuestionnaires
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.ArrayList
 import java.util.Calendar
 import java.util.stream.Collectors
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewQuestionnaireActivity : AppCompatActivity() {
+    @Inject lateinit var questionnaireManager: QuestionnaireManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_questionnaire)
@@ -47,13 +51,13 @@ class NewQuestionnaireActivity : AppCompatActivity() {
     }
 
     private fun addToSavedQuestionnaires(questionnaire: Questionnaire) {
-        val questionnaireList: ArrayList<Questionnaire> = getQuestionnaires(this)
+        val questionnaireList: ArrayList<Questionnaire> = questionnaireManager.getQuestionnaires(this)
         questionnaireList.add(questionnaire)
-        saveQuestionnaires(this, questionnaireList)
+        questionnaireManager.saveQuestionnaires(this, questionnaireList)
     }
 
     private fun createUniqueQuestionnaireId(): Int {
-        val maxCurrent: Int? = getQuestionnaires(this).stream()
+        val maxCurrent: Int? = questionnaireManager.getQuestionnaires(this).stream()
             .map{q -> q.id}
             .collect(Collectors.toSet())
             .maxOrNull()

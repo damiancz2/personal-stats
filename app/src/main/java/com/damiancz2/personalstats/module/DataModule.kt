@@ -3,7 +3,9 @@ package com.damiancz2.personalstats.module
 import com.damiancz2.personalstats.AnswerManager
 import com.damiancz2.personalstats.FileBasedAnswerManager
 import com.damiancz2.personalstats.FileBasedQuestionManager
+import com.damiancz2.personalstats.FileBasedQuestionnaireManager
 import com.damiancz2.personalstats.QuestionManager
+import com.damiancz2.personalstats.QuestionnaireManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,4 +25,9 @@ abstract class DataModule {
     abstract fun bindQuestionManager(
         manager: FileBasedQuestionManager
     ) : QuestionManager
+
+    @Binds
+    abstract fun bindQuestionnaireManager(
+        manager: FileBasedQuestionnaireManager
+    ) : QuestionnaireManager
 }

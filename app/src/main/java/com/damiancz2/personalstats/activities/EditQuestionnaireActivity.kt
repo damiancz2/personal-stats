@@ -10,12 +10,16 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.QUESTIONNAIRE_NAME
+import com.damiancz2.personalstats.QuestionnaireManager
 import com.damiancz2.personalstats.R
-import com.damiancz2.personalstats.getQuestionnaires
 import com.damiancz2.personalstats.model.Questionnaire
-import com.damiancz2.personalstats.saveQuestionnaires
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class EditQuestionnaireActivity : AppCompatActivity() {
+    @Inject lateinit var questionnaireManager: QuestionnaireManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_questionnaire)
@@ -49,13 +53,13 @@ class EditQuestionnaireActivity : AppCompatActivity() {
                 editQuestionButton.visibility = View.GONE
                 textView.visibility = View.GONE
                 tick.setOnClickListener{
-                    val questionnaires: ArrayList<Questionnaire> = getQuestionnaires(this)
+                    val questionnaires: ArrayList<Questionnaire> = questionnaireManager.getQuestionnaires(this)
                     val questionnaire = questionnaires.filter{it.id == questionnaireId}[0]
                     val index = questionnaires.indexOf(questionnaire)
                     val newQuestionnaire = Questionnaire(questionnaireId, editText.text.toString())
                     questionnaires.remove(questionnaire)
                     questionnaires.add(index, newQuestionnaire)
-                    saveQuestionnaires(this, questionnaires)
+                    questionnaireManager.saveQuestionnaires(this, questionnaires)
 
                     textView.text = editText.text.toString()
                     editText.visibility = View.GONE
