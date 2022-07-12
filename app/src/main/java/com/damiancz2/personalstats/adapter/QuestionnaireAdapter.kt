@@ -24,7 +24,6 @@ import com.damiancz2.personalstats.dialogs.AreYouSureDialog
 import com.damiancz2.personalstats.model.Question
 import com.damiancz2.personalstats.model.Questionnaire
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
@@ -33,8 +32,7 @@ class QuestionnaireAdapter(private var data: List<Questionnaire>,
     : RecyclerView.Adapter<QuestionnaireAdapter.ViewHolder>() {
 
     @Inject lateinit var questionManager: QuestionManager
-
-    private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
+    @Inject lateinit var gson: Gson
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val myEntryPoint = EntryPointAccessors.fromApplication(parent.context, AdapterEntryPoint::class.java)

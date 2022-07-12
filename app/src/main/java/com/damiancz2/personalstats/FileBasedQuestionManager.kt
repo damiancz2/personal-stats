@@ -2,13 +2,13 @@ package com.damiancz2.personalstats
 
 import android.content.Context
 import com.damiancz2.personalstats.model.Question
-import com.google.gson.GsonBuilder
+import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
 import javax.inject.Inject
 
 class FileBasedQuestionManager @Inject constructor(): QuestionManager {
-    private val gson = GsonBuilder().setPrettyPrinting().create()
+    @Inject lateinit var gson: Gson
 
     override fun saveQuestion(context: Context, questionnaireId: Int, question: Question) {
         val questions = getQuestions(context, questionnaireId)

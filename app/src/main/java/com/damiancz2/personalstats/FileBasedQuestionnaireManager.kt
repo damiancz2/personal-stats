@@ -2,14 +2,14 @@ package com.damiancz2.personalstats
 
 import android.content.Context
 import com.damiancz2.personalstats.model.Questionnaire
-import com.google.gson.GsonBuilder
+import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
 import javax.inject.Inject
 
 class FileBasedQuestionnaireManager @Inject constructor() : QuestionnaireManager {
 
-    private val gson = GsonBuilder().setPrettyPrinting().create()
+    @Inject lateinit var gson: Gson
 
     override fun saveQuestionnaire(context: Context, questionnaire: Questionnaire) {
         val questionnaires = getQuestionnaires(context)

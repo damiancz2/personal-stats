@@ -18,7 +18,6 @@ import com.damiancz2.personalstats.model.Answer
 import com.damiancz2.personalstats.model.AnswerType
 import com.damiancz2.personalstats.model.Question
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -30,8 +29,7 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
 
     @Inject lateinit var questionManager : QuestionManager
     @Inject lateinit var answerManager : AnswerManager
-
-    private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
+    @Inject lateinit var gson: Gson
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
