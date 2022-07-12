@@ -1,7 +1,6 @@
 package com.damiancz2.personalstats
 
 import android.content.Context
-import com.damiancz2.personalstats.model.Answer
 import com.damiancz2.personalstats.model.Question
 import com.damiancz2.personalstats.model.Questionnaire
 import com.google.gson.Gson
@@ -10,25 +9,6 @@ import com.google.gson.reflect.TypeToken
 import java.io.File
 
 val GSON: Gson = GsonBuilder().setPrettyPrinting().create()
-
-fun saveAnswers(context: Context, questionnaireId: Int, questionId: String, answers: List<Answer>) {
-    val file = getAnswersFile(context, questionnaireId, questionId)
-    getQuestionnaireAnswersDirectory(context, questionnaireId).mkdirs()
-    val answersString: String = GSON.toJson(answers)
-    file.writeText(answersString)
-}
-
-fun getAnswers(context: Context, questionnaireId: Int, questionId: String): ArrayList<Answer> {
-    val file = getAnswersFile(context, questionnaireId, questionId)
-    getQuestionnaireAnswersDirectory(context, questionnaireId).mkdirs()
-    if (file.exists()) {
-        val answersString = file.readText()
-        val itemType = object : TypeToken<ArrayList<Answer>>() {}.type
-        return GSON.fromJson(answersString, itemType)
-    } else {
-        return ArrayList()
-    }
-}
 
 fun saveQuestions(context: Context, questionnaireId: Int, questions: List<Question>) {
     val file = getQuestionsFile(context, questionnaireId)

@@ -6,14 +6,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.damiancz2.personalstats.AnswerManager
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.activities.SubmittedActivity
-import com.damiancz2.personalstats.getAnswers
 import com.damiancz2.personalstats.model.Answer
 import com.damiancz2.personalstats.model.AnswerType
 import com.damiancz2.personalstats.model.Question
-import com.damiancz2.personalstats.saveAnswers
 import com.damiancz2.personalstats.saveQuestions
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -21,8 +20,12 @@ import com.google.gson.reflect.TypeToken
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
+import javax.inject.Inject
 
 abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
+
+    @Inject
+    lateinit var answerManager : AnswerManager
 
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
@@ -65,7 +68,7 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
         val questionnaireId = bundle.getInt(QUESTIONNAIRE_ID)
 
         val inputView: V = findViewById(getInputViewId())
-        val answers: ArrayList<Answer> = getAnswers(this, questionnaireId!!, questionId)
+        val answers: ArrayList<Answer> = answerManager.getAnswers(this, questionnaireId!!, questionId)
 
         val now : LocalDateTime = LocalDateTime.now()
 
@@ -79,7 +82,7 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
         )
         answers.add(answer)
 
-        saveAnswers(this, questionnaireId, questionId, answers)
+        answerManager.saveAnswers(this, questionnaireId, questionId, answers)
     }
 
     private fun goToQuestionAt(bundle: Bundle, index: Int, question: Question) {

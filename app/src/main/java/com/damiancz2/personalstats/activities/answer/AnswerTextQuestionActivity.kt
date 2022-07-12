@@ -2,7 +2,9 @@ package com.damiancz2.personalstats.activities.answer
 
 import android.widget.TextView
 import com.damiancz2.personalstats.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AnswerTextQuestionActivity : AbstractAnswerQuestionActivity<TextView>() {
 
     override fun prepare() {

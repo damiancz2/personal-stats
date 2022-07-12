@@ -6,14 +6,19 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.damiancz2.personalstats.AnswerManager
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.QUESTION_ID
 import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.adapter.AnswerAdapter
-import com.damiancz2.personalstats.getAnswers
 import com.damiancz2.personalstats.model.Answer
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ViewAnswersActivity : AppCompatActivity() {
+
+    @Inject lateinit var answerManager: AnswerManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +34,7 @@ class ViewAnswersActivity : AppCompatActivity() {
             val extras: Bundle = intent.extras!!
             val questionId = extras.getString(QUESTION_ID)
             val questionnaireId = extras.getInt(QUESTIONNAIRE_ID)
-            val answers : ArrayList<Answer> = getAnswers(this, questionnaireId, questionId!!)
+            val answers : ArrayList<Answer> = answerManager.getAnswers(this, questionnaireId, questionId!!)
             val filteredAnswers: List<Answer> = answers
                 .filter { answer -> answer.questionId == questionId }
             val adapter = AnswerAdapter(filteredAnswers)

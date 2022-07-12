@@ -2,7 +2,9 @@ package com.damiancz2.personalstats.activities.answer
 
 import android.widget.RadioGroup
 import com.damiancz2.personalstats.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AnswerYesNoQuestionActivity : AbstractAnswerQuestionActivity<RadioGroup>() {
 
     override fun prepare() {

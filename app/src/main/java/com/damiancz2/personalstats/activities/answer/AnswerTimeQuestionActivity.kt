@@ -2,9 +2,11 @@ package com.damiancz2.personalstats.activities.answer
 
 import android.widget.TimePicker
 import com.damiancz2.personalstats.R
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+@AndroidEntryPoint
 class AnswerTimeQuestionActivity : AbstractAnswerQuestionActivity<TimePicker>() {
 
     override fun prepare() {
