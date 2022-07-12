@@ -11,7 +11,9 @@ import javax.inject.Inject
 class FileBasedAnswerManager @Inject constructor() : AnswerManager {
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
-    override fun saveAnswers(context: Context, questionnaireId: Int, questionId: String, answers: List<Answer>) {
+    override fun saveAnswer(context: Context, questionnaireId: Int, questionId: String, answer: Answer) {
+        val answers = getAnswers(context, questionnaireId, questionId)
+        answers.add(answer)
         val file = getAnswersFile(context, questionnaireId, questionId)
         getQuestionnaireAnswersDirectory(context, questionnaireId).mkdirs()
         val answersString: String = gson.toJson(answers)

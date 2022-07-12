@@ -53,13 +53,9 @@ class EditQuestionnaireActivity : AppCompatActivity() {
                 editQuestionButton.visibility = View.GONE
                 textView.visibility = View.GONE
                 tick.setOnClickListener{
-                    val questionnaires: ArrayList<Questionnaire> = questionnaireManager.getQuestionnaires(this)
-                    val questionnaire = questionnaires.filter{it.id == questionnaireId}[0]
-                    val index = questionnaires.indexOf(questionnaire)
+
                     val newQuestionnaire = Questionnaire(questionnaireId, editText.text.toString())
-                    questionnaires.remove(questionnaire)
-                    questionnaires.add(index, newQuestionnaire)
-                    questionnaireManager.saveQuestionnaires(this, questionnaires)
+                    questionnaireManager.replaceQuestionnaire(this, questionnaireId, newQuestionnaire)
 
                     textView.text = editText.text.toString()
                     editText.visibility = View.GONE

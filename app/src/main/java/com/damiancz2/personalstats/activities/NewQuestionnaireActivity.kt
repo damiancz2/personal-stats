@@ -14,7 +14,6 @@ import com.damiancz2.personalstats.QuestionnaireReminderReceiver
 import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.model.Questionnaire
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.ArrayList
 import java.util.Calendar
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -40,20 +39,14 @@ class NewQuestionnaireActivity : AppCompatActivity() {
     private fun save(): Questionnaire {
         val questionnaireId = createUniqueQuestionnaireId()
 
-        val inputText : EditText = findViewById(R.id.NewQuestionnaireNameInputTextBox)
+        val inputText: EditText = findViewById(R.id.NewQuestionnaireNameInputTextBox)
         val questionnaire = Questionnaire(
             id = questionnaireId,
             name = inputText.text.toString()
         )
         setNotifications(questionnaire)
-        addToSavedQuestionnaires(questionnaire)
+        questionnaireManager.saveQuestionnaire(this, questionnaire)
         return questionnaire
-    }
-
-    private fun addToSavedQuestionnaires(questionnaire: Questionnaire) {
-        val questionnaireList: ArrayList<Questionnaire> = questionnaireManager.getQuestionnaires(this)
-        questionnaireList.add(questionnaire)
-        questionnaireManager.saveQuestionnaires(this, questionnaireList)
     }
 
     private fun createUniqueQuestionnaireId(): Int {

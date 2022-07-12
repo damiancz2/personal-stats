@@ -10,10 +10,11 @@ import javax.inject.Inject
 class FileBasedQuestionManager @Inject constructor(): QuestionManager {
     private val gson = GsonBuilder().setPrettyPrinting().create()
 
-    override fun saveQuestions(context: Context, questionnaireId: Int, questions: List<Question>) {
-        val file = getQuestionsFile(context, questionnaireId)
-        getQuestionnaireDirectory(context, questionnaireId).mkdirs()
+    override fun saveQuestion(context: Context, questionnaireId: Int, question: Question) {
+        val questions = getQuestions(context, questionnaireId)
+        questions.add(question)
         val questionsString: String = gson.toJson(questions)
+        val file = getQuestionsFile(context, questionnaireId)
         file.writeText(questionsString)
     }
 
@@ -27,6 +28,14 @@ class FileBasedQuestionManager @Inject constructor(): QuestionManager {
         } else {
             return ArrayList()
         }
+    }
+
+    override fun deleteQuestion(context: Context, questionnaireId: Int, questionId: String) {
+        val questions = getQuestions(context, questionnaireId)
+        val resultQuestions = questions.filter{q -> q.id != questionId}
+        val questionsString: String = gson.toJson(resultQuestions)
+        val file = getQuestionsFile(context, questionnaireId)
+        file.writeText(questionsString)
     }
 
     private fun getQuestionsFile(context: Context, questionnaireId: Int): File {

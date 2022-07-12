@@ -49,19 +49,15 @@ class AddQuestionActivity : AppCompatActivity() {
         val radioGroup : RadioGroup = findViewById(R.id.AnswerTypeRadioGroup)
         val checkedButtonId: Int = radioGroup.checkedRadioButtonId
 
-        val questionList: ArrayList<Question> = questionManager.getQuestions(this, questionnaireId)
-
         val questionId = UUID.randomUUID().toString()
 
-        val sampleQuestion = Question(
+        val resultQuestion = Question(
             id = questionId,
             question = question,
             answerType = getAnswerType(checkedButtonId)
         )
 
-        questionList.add(sampleQuestion)
-
-        questionManager.saveQuestions(this, questionnaireId, questionList)
+        questionManager.saveQuestion(this, questionnaireId, resultQuestion)
     }
 
     private fun getAnswerType(buttonId: Int) : AnswerType {

@@ -76,7 +76,6 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
         val questionnaireId = bundle.getInt(QUESTIONNAIRE_ID)
 
         val inputView: V = findViewById(getInputViewId())
-        val answers: ArrayList<Answer> = answerManager.getAnswers(this, questionnaireId!!, questionId)
 
         val now : LocalDateTime = LocalDateTime.now()
 
@@ -88,9 +87,8 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
             timestamp = now.format(DateTimeFormatter.ISO_DATE_TIME),
             id = answerId
         )
-        answers.add(answer)
 
-        answerManager.saveAnswers(this, questionnaireId, questionId, answers)
+        answerManager.saveAnswer(this, questionnaireId, questionId, answer)
     }
 
     private fun goToQuestionAt(bundle: Bundle, index: Int, question: Question) {
@@ -132,8 +130,8 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
         val deleteButton: Button = findViewById(R.id.DeleteButton)
         val questionnaireId: Int = bundle.getInt(QUESTIONNAIRE_ID)
         deleteButton.setOnClickListener{
+            questionManager.deleteQuestion(this, questionnaireId, questions[index].id)
             questions.removeAt(index)
-            questionManager.saveQuestions(this, questionnaireId, questions)
             val jsonQuestions : String = gson.toJson(questions)
             bundle.putString(QUESTIONS, jsonQuestions)
             if (isLast) {

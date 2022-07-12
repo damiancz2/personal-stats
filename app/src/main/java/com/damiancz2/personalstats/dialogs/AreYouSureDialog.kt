@@ -29,12 +29,8 @@ class AreYouSureDialog(private val questionnaire: Questionnaire,
     }
 
     private fun deleteQuestionnaire() {
-        val questionnaires: ArrayList<Questionnaire> = questionnaireManager.getQuestionnaires(requireContext())
-        val resultQuestionnaires =
-            questionnaires.filter { qnare -> qnare.id != questionnaire.id }
+        val resultQuestionnaires = questionnaireManager.deleteQuestionnaire(requireContext(), questionnaire.id)
         adapter.setQuestionnaires(resultQuestionnaires)
-        questionnaireManager.saveQuestionnaires(requireContext(), resultQuestionnaires)
-        questionnaireManager.deleteQuestionnaire(requireContext(), questionnaire.id)
     }
 
 }

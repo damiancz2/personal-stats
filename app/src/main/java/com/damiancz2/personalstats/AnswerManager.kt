@@ -5,7 +5,7 @@ import com.damiancz2.personalstats.model.Answer
 
 interface AnswerManager {
 
-    fun saveAnswers(context: Context, questionnaireId: Int, questionId: String, answers: List<Answer>)
+    fun saveAnswer(context: Context, questionnaireId: Int, questionId: String, answer: Answer)
 
     fun getAnswers(context: Context, questionnaireId: Int, questionId: String): ArrayList<Answer>
 }
