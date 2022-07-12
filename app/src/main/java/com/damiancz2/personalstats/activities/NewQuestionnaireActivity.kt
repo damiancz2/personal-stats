@@ -14,9 +14,8 @@ import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.getQuestionnaires
 import com.damiancz2.personalstats.model.Questionnaire
 import com.damiancz2.personalstats.saveQuestionnaires
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 import java.util.ArrayList
+import java.util.Calendar
 import java.util.stream.Collectors
 
 class NewQuestionnaireActivity : AppCompatActivity() {
@@ -71,20 +70,18 @@ class NewQuestionnaireActivity : AppCompatActivity() {
         reminderIntent.putExtra(QUESTIONNAIRE_ID, questionnaire.id)
         reminderIntent.putExtra(QUESTIONNAIRE_NAME, questionnaire.name)
         val pendingIntent: PendingIntent = PendingIntent
-            .getBroadcast(this, questionnaire.id, reminderIntent, 0)
+            .getBroadcast(this, questionnaire.id, reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
+        val calendar: Calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar.set(Calendar.HOUR_OF_DAY, 20)
+        calendar.set(Calendar.MINUTE, 40)
+        calendar.set(Calendar.SECOND, 0)
+
         val day: Long = 24 * 60 * 60 * 1000
 
-        val today = LocalDateTime.now()
-            .withHour(12)
-            .withMinute(0)
-            .withSecond(0)
-            .withNano(0)
-
-        val firstNotificationTime = today.toEpochSecond(ZoneOffset.UTC)
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstNotificationTime, day, pendingIntent)
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, day, pendingIntent)
     }
 }
