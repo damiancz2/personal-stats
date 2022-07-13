@@ -37,6 +37,7 @@ class QuestionnaireAdapter(private var data: List<Questionnaire>,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val myEntryPoint = EntryPointAccessors.fromApplication(parent.context, AdapterEntryPoint::class.java)
         questionManager = myEntryPoint.getQuestionManager()
+        gson = myEntryPoint.getGson()
 
         val layoutInflater = LayoutInflater.from(parent.context)
         val listItem: View = layoutInflater.inflate(R.layout.list_questionnaire, parent, false)
