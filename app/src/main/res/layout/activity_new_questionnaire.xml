@@ -30,7 +30,7 @@
         android:layout_marginBottom="360dp"
         android:ems="10"
         android:fontFamily="sans-serif-condensed-light"
-        android:hint="Name of your questionnaire"
+        android:hint="@string/name_of_your_questionnaire"
         android:inputType="textNoSuggestions"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

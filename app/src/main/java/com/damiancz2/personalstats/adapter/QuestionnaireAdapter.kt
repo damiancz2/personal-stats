@@ -20,7 +20,7 @@ import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.activities.EditQuestionnaireActivity
 import com.damiancz2.personalstats.activities.SubmittedActivity
 import com.damiancz2.personalstats.activities.ViewQuestionsActivity
-import com.damiancz2.personalstats.dialogs.AreYouSureDialog
+import com.damiancz2.personalstats.dialogs.DeleteQuestionnaireDialog
 import com.damiancz2.personalstats.model.Question
 import com.damiancz2.personalstats.model.Questionnaire
 import com.google.gson.Gson
@@ -68,7 +68,7 @@ class QuestionnaireAdapter(private var data: List<Questionnaire>,
         questionnaire: Questionnaire,
     ) {
         holder.deleteButton.setOnClickListener {
-            AreYouSureDialog(questionnaire, this).show(fragmentManager, null)
+            DeleteQuestionnaireDialog(questionnaire, this).show(fragmentManager, null)
         }
     }
 

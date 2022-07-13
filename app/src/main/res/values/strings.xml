@@ -1,1 +1,27 @@
-<resources></resources>
+<resources>
+    <string name="type_question">Type your question here</string>
+    <string name="answer_type">Answer Type</string>
+    <string name="submit">Submit</string>
+    <string name="default_question">Here should be your question</string>
+    <string name="submitted">Submitted</string>
+    <string name="back_to_main_menu">Back to main menu</string>
+    <string name="answer_questions">Answer questions</string>
+    <string name="add_question">Add question</string>
+    <string name="new_questionnaire">New questionnaire</string>
+    <string name="next">Next</string>
+    <string name="text">Text</string>
+    <string name="number">Number</string>
+    <string name="time">Time</string>
+    <string name="yes_or_no">Yes/No</string>
+    <string name="skip">Skip</string>
+    <string name="back">Back</string>
+    <string name="delete">Delete</string>
+    <string name="back_to_main">Back to main</string>
+    <string name="your_questionnaires">Your questionnaires</string>
+    <string name="name_of_your_questionnaire">Name of your questionnaire</string>
+    <string name="no_questions">No questions</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="sure_delete_questionnaire">Are you sure you want to delete questionnaire</string>
+    <string name="it_will_delete_questionnaire_data">It will delete all the data for this questionnaire</string>
+</resources>

@@ -5,14 +5,15 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.damiancz2.personalstats.QuestionnaireManager
+import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.adapter.QuestionnaireAdapter
 import com.damiancz2.personalstats.model.Questionnaire
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AreYouSureDialog(private val questionnaire: Questionnaire,
-                       private val adapter: QuestionnaireAdapter
+class DeleteQuestionnaireDialog(private val questionnaire: Questionnaire,
+                                private val adapter: QuestionnaireAdapter
 ) : DialogFragment() {
 
     @Inject lateinit var questionnaireManager: QuestionnaireManager
@@ -20,10 +21,10 @@ class AreYouSureDialog(private val questionnaire: Questionnaire,
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("Are you sure you want to delete questionnaire " + questionnaire.name +
-                     "? It will delete all the data for this questionnaire")
-                .setNegativeButton("No") { _, _ -> }
-                .setPositiveButton("Yes") { _, _ -> deleteQuestionnaire() }
+            builder.setMessage(getString(R.string.sure_delete_questionnaire) + " " + questionnaire.name +
+                     "? "+ getString(R.string.it_will_delete_questionnaire_data))
+                .setNegativeButton(getString(R.string.no)) { _, _ -> }
+                .setPositiveButton(getString(R.string.yes)) { _, _ -> deleteQuestionnaire() }
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }

@@ -2,7 +2,6 @@ package com.damiancz2.personalstats.activities.answer
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -25,8 +24,6 @@ import java.util.UUID
 import javax.inject.Inject
 
 abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
-    private val TAG = "AbstractAnswerQuestionActivity"
-
     @Inject lateinit var questionManager : QuestionManager
     @Inject lateinit var answerManager : AnswerManager
     @Inject lateinit var gson: Gson
@@ -34,9 +31,6 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        Log.i(TAG, "Answer Manager: " + answerManager)
-        Log.i(TAG, "Question Manager: " + questionManager)
         setContentView(getLayout())
 
         val questions: ArrayList<Question>
@@ -52,7 +46,7 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
         } else {
             index = 0
             questions = ArrayList()
-            questions.add(Question("dummy id", "No questions", AnswerType.TEXT))
+            questions.add(Question("dummy id", getString(R.string.no_questions), AnswerType.TEXT))
             bundle = Bundle()
             bundle.putInt(INDEX, index)
             bundle.putString(QUESTIONS, gson.toJson(questions))

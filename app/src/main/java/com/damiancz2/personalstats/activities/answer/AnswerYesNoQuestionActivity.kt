@@ -20,9 +20,9 @@ class AnswerYesNoQuestionActivity : AbstractAnswerQuestionActivity<RadioGroup>()
 
     override fun getValue(inputView: RadioGroup): String {
         return when (inputView.checkedRadioButtonId) {
-            R.id.yesRadioButton -> "Yes"
-            R.id.noRadioButton -> "No"
-            else -> "No"
+            R.id.yesRadioButton -> getString(R.string.yes)
+            R.id.noRadioButton -> getString(R.string.no)
+            else -> getString(R.string.no)
         }
     }
 }
