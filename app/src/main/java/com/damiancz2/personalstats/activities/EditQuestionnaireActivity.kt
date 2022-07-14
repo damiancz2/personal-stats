@@ -45,6 +45,14 @@ class EditQuestionnaireActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
+            val notificationSettingsButton: Button = findViewById(R.id.btnNotificationSettings)
+            notificationSettingsButton.setOnClickListener{
+                val intent = Intent(this, SetUpNotificationsActivity::class.java)
+                intent.putExtra(QUESTIONNAIRE_NAME, questionnaireName)
+                intent.putExtra(QUESTIONNAIRE_ID, questionnaireId)
+                startActivity(intent)
+            }
+
             val editQuestionButton: ImageView = findViewById(R.id.btnEditQuestionnaireName)
             editQuestionButton.setOnClickListener{
                 val tick: ImageView = findViewById(R.id.btnApproveQuestionnaireName)
@@ -71,7 +79,5 @@ class EditQuestionnaireActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-
-
     }
 }

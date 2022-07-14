@@ -10,24 +10,22 @@
         android:id="@+id/AddQuestionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginEnd="150dp"
-        android:layout_marginBottom="350dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
         android:text="@string/add_question"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditQuestionnaireNameTextBox" />
 
     <TextView
         android:id="@+id/EditQuestionnaireNameTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:fontFamily="sans-serif-condensed-light"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:fontFamily="sans-serif-condensed-light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,36 +37,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:fontFamily="sans-serif-condensed-light"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:fontFamily="sans-serif-condensed-light"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:visibility="gone"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/btnEditQuestionnaireName"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
+        android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@+id/EditQuestionnaireNameTextBox"
         app:layout_constraintStart_toEndOf="@+id/EditQuestionnaireNameTextBox"
-        app:layout_constraintTop_toTopOf="@+id/EditQuestionnaireNameTextBox"
-        android:src="@drawable/ic_edit" />
+        app:layout_constraintTop_toTopOf="@+id/EditQuestionnaireNameTextBox" />
 
     <ImageView
         android:id="@+id/btnApproveQuestionnaireName"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
+        android:src="@drawable/ic_tick"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/QuestionnaireNameInputEditText"
         app:layout_constraintStart_toEndOf="@+id/QuestionnaireNameInputEditText"
-        app:layout_constraintTop_toTopOf="@+id/QuestionnaireNameInputEditText"
-        android:src="@drawable/ic_tick"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toTopOf="@+id/QuestionnaireNameInputEditText" />
 
     <Button
         android:id="@+id/BackToMainEditQuestionnaire"
@@ -79,5 +77,15 @@
         android:text="@string/back_to_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnNotificationSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notification_settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AddQuestionButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

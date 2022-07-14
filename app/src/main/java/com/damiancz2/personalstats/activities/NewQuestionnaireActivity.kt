@@ -1,7 +1,5 @@
 package com.damiancz2.personalstats.activities
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,11 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.QUESTIONNAIRE_NAME
 import com.damiancz2.personalstats.QuestionnaireManager
-import com.damiancz2.personalstats.QuestionnaireReminderReceiver
 import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.model.Questionnaire
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Calendar
 import java.util.stream.Collectors
 import javax.inject.Inject
 
@@ -44,7 +40,6 @@ class NewQuestionnaireActivity : AppCompatActivity() {
             id = questionnaireId,
             name = inputText.text.toString()
         )
-        setNotifications(questionnaire)
         questionnaireManager.saveQuestionnaire(this, questionnaire)
         return questionnaire
     }
@@ -60,25 +55,5 @@ class NewQuestionnaireActivity : AppCompatActivity() {
         } else {
             maxCurrent + 1
         }
-    }
-
-    private fun setNotifications(questionnaire: Questionnaire) {
-        val reminderIntent = Intent(this, QuestionnaireReminderReceiver::class.java)
-        reminderIntent.putExtra(QUESTIONNAIRE_ID, questionnaire.id)
-        reminderIntent.putExtra(QUESTIONNAIRE_NAME, questionnaire.name)
-        val pendingIntent: PendingIntent = PendingIntent
-            .getBroadcast(this, questionnaire.id, reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT)
-
-        val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 20)
-        calendar.set(Calendar.MINUTE, 40)
-        calendar.set(Calendar.SECOND, 0)
-
-        val day: Long = 24 * 60 * 60 * 1000
-
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, day, pendingIntent)
     }
 }
