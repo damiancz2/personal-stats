@@ -150,7 +150,7 @@ class SetUpNotificationsActivity : AppCompatActivity() {
 
         val day: Long = 24 * 60 * 60 * 1000
 
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, day, pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, day, pendingIntent)
     }
 
     private fun setWeeklyNotifications(questionnaireId: Int, questionnaireName: String,
@@ -176,7 +176,7 @@ class SetUpNotificationsActivity : AppCompatActivity() {
 
         val week: Long = 7 * 24 * 60 * 60 * 1000
 
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, week, pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, week, pendingIntent)
     }
 
     private fun createNotificationIntent(
