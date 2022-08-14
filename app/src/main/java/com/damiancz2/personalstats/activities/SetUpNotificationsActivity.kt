@@ -13,10 +13,13 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
+import com.damiancz2.personalstats.DAILY
+import com.damiancz2.personalstats.NOTIFICATION_FREQUENCY
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.QUESTIONNAIRE_NAME
 import com.damiancz2.personalstats.QuestionnaireReminderReceiver
 import com.damiancz2.personalstats.R
+import com.damiancz2.personalstats.WEEKLY
 import java.time.DayOfWeek
 import java.util.Calendar
 
@@ -134,7 +137,7 @@ class SetUpNotificationsActivity : AppCompatActivity() {
 
 
     private fun setDailyNotifications(questionnaireId: Int, questionnaireName: String, hour: Int, minute:Int) {
-        val pendingIntent: PendingIntent = createNotificationIntent(questionnaireId, questionnaireName)
+        val pendingIntent: PendingIntent = createNotificationIntent(questionnaireId, questionnaireName, DAILY)
 
         val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
@@ -148,14 +151,12 @@ class SetUpNotificationsActivity : AppCompatActivity() {
             calendar.add(Calendar.DAY_OF_WEEK, 1)
         }
 
-        val day: Long = 24 * 60 * 60 * 1000
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, day, pendingIntent)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
     private fun setWeeklyNotifications(questionnaireId: Int, questionnaireName: String,
                                        dayOfWeek: DayOfWeek, hour: Int, minute:Int) {
-        val pendingIntent: PendingIntent = createNotificationIntent(questionnaireId, questionnaireName)
+        val pendingIntent: PendingIntent = createNotificationIntent(questionnaireId, questionnaireName, WEEKLY)
 
         val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
@@ -174,18 +175,18 @@ class SetUpNotificationsActivity : AppCompatActivity() {
             calendar.add(Calendar.WEEK_OF_YEAR, 1)
         }
 
-        val week: Long = 7 * 24 * 60 * 60 * 1000
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, week, pendingIntent)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
     private fun createNotificationIntent(
         questionnaireId: Int,
         questionnaireName: String,
+        frequency: String
     ): PendingIntent {
         val reminderIntent = Intent(this, QuestionnaireReminderReceiver::class.java)
         reminderIntent.putExtra(QUESTIONNAIRE_ID, questionnaireId)
         reminderIntent.putExtra(QUESTIONNAIRE_NAME, questionnaireName)
+        reminderIntent.putExtra(NOTIFICATION_FREQUENCY, frequency)
         return PendingIntent.getBroadcast(this, questionnaireId, reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT)
     }
 
