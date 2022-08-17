@@ -74,12 +74,6 @@
             android:text="@string/number" />
 
         <RadioButton
-            android:id="@+id/TimeAnswerTypeRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time" />
-
-        <RadioButton
             android:id="@+id/YesNoAnswerTypeRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

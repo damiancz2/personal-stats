@@ -5,7 +5,6 @@ import android.content.Intent
 import com.damiancz2.personalstats.activities.answer.AbstractAnswerQuestionActivity
 import com.damiancz2.personalstats.activities.answer.AnswerNumberQuestionActivity
 import com.damiancz2.personalstats.activities.answer.AnswerTextQuestionActivity
-import com.damiancz2.personalstats.activities.answer.AnswerTimeQuestionActivity
 import com.damiancz2.personalstats.activities.answer.AnswerYesNoQuestionActivity
 
 enum class AnswerType(
@@ -13,7 +12,6 @@ enum class AnswerType(
 {
     TEXT(AnswerTextQuestionActivity::class.java),
     NUMBER(AnswerNumberQuestionActivity::class.java),
-    TIME(AnswerTimeQuestionActivity::class.java),
     YESNO(AnswerYesNoQuestionActivity::class.java);
 
     fun createIntent(context: Context) : Intent {
