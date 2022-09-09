@@ -31,7 +31,7 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(getLayout())
+        setContentView(R.layout.activity_answer_question)
 
         val questions: ArrayList<Question>
         val index: Int
@@ -146,8 +146,6 @@ abstract class AbstractAnswerQuestionActivity<V>: AppCompatActivity() {
     }
 
     abstract fun prepare()
-
-    abstract fun getLayout() : Int
 
     abstract fun getInputViewId() : Int
 

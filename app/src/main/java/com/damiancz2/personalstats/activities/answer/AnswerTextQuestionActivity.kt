@@ -2,16 +2,19 @@ package com.damiancz2.personalstats.activities.answer
 
 import android.widget.TextView
 import com.damiancz2.personalstats.R
+import com.damiancz2.personalstats.fragments.TextAnswerFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AnswerTextQuestionActivity : AbstractAnswerQuestionActivity<TextView>() {
 
     override fun prepare() {
-    }
+        val textFragment = TextAnswerFragment()
 
-    override fun getLayout(): Int {
-        return R.layout.activity_answer_text_question
+        supportFragmentManager.beginTransaction().apply{
+            replace(R.id.answerFrameLayout, textFragment)
+            commit()
+        }
     }
 
     override fun getValue(inputView: TextView) : String {

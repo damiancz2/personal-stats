@@ -2,16 +2,19 @@ package com.damiancz2.personalstats.activities.answer
 
 import android.widget.RadioGroup
 import com.damiancz2.personalstats.R
+import com.damiancz2.personalstats.fragments.YesNoAnswerFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AnswerYesNoQuestionActivity : AbstractAnswerQuestionActivity<RadioGroup>() {
 
     override fun prepare() {
-    }
+        val yesNoFragment = YesNoAnswerFragment()
 
-    override fun getLayout(): Int {
-        return R.layout.activity_answer_yes_no_question
+        supportFragmentManager.beginTransaction().apply{
+            replace(R.id.answerFrameLayout, yesNoFragment)
+            commit()
+        }
     }
 
     override fun getInputViewId(): Int {

@@ -280,7 +280,6 @@ class EndToEndTest {
         onView(withId(R.id.AnswerTypeRadioGroup)).check(matches(isDisplayed()))
         onView(withId(R.id.NumberAnswerTypeRadioButton)).check(matches(isDisplayed()))
         onView(withId(R.id.TextAnswerTypeRadioButton)).check(matches(isDisplayed()))
-        onView(withId(R.id.TimeAnswerTypeRadioButton)).check(matches(isDisplayed()))
         onView(withId(R.id.YesNoAnswerTypeRadioButton)).check(matches(isDisplayed()))
     }
 
