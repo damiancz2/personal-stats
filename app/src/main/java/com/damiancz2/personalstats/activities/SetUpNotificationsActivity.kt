@@ -1,7 +1,5 @@
 package com.damiancz2.personalstats.activities
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,14 +11,16 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
-import com.damiancz2.personalstats.DAILY
-import com.damiancz2.personalstats.NOTIFICATION_FREQUENCY
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.damiancz2.personalstats.QUESTIONNAIRE_ID
 import com.damiancz2.personalstats.QUESTIONNAIRE_NAME
-import com.damiancz2.personalstats.QuestionnaireReminderReceiver
 import com.damiancz2.personalstats.R
-import com.damiancz2.personalstats.WEEKLY
+import com.damiancz2.personalstats.getQuestionnaireTag
+import com.damiancz2.personalstats.notifications.NotificationWorker
 import java.time.DayOfWeek
+import java.time.Duration
 import java.util.Calendar
 
 class SetUpNotificationsActivity : AppCompatActivity() {
@@ -103,11 +103,12 @@ class SetUpNotificationsActivity : AppCompatActivity() {
         submitButton.setOnClickListener{
             when (notificationFrequencySpinner.selectedItem.toString()) {
                 getString(R.string.daily) -> {
-                    setDailyNotifications(questionnaireId, questionnaireName!!, dailyTimePicker.hour, dailyTimePicker.minute)
+                    setDailyNotifications(questionnaireId,
+                        dailyTimePicker.hour, dailyTimePicker.minute)
                 }
                 getString(R.string.weekly) -> {
-                    setWeeklyNotifications(questionnaireId, questionnaireName!!,
-                        getDayOfWeek(dayOfWeekSpinner), weeklyTimePicker.hour, weeklyTimePicker.minute)
+                    setWeeklyNotifications(questionnaireId, getDayOfWeek(dayOfWeekSpinner),
+                        weeklyTimePicker.hour, weeklyTimePicker.minute)
                 }
                 else -> { }
             }
@@ -136,10 +137,8 @@ class SetUpNotificationsActivity : AppCompatActivity() {
     }
 
 
-    private fun setDailyNotifications(questionnaireId: Int, questionnaireName: String, hour: Int, minute:Int) {
-        val pendingIntent: PendingIntent = createNotificationIntent(questionnaireId, questionnaireName, DAILY)
-
-        val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+    private fun setDailyNotifications(questionnaireId: Int, hour: Int, minute:Int) {
+        WorkManager.getInstance(this).cancelAllWorkByTag(getQuestionnaireTag(questionnaireId))
 
         val calendar: Calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
@@ -151,15 +150,21 @@ class SetUpNotificationsActivity : AppCompatActivity() {
             calendar.add(Calendar.DAY_OF_WEEK, 1)
         }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-    }
+        val nextTime = calendar.timeInMillis
+        val now = System.currentTimeMillis()
 
-    private fun setWeeklyNotifications(questionnaireId: Int, questionnaireName: String,
+        val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(Duration.ofDays(1))
+            .setInputData(workDataOf(QUESTIONNAIRE_ID to questionnaireId))
+            .setInitialDelay(Duration.ofMillis(nextTime - now))
+            .addTag(getQuestionnaireTag(questionnaireId))
+            .build()
+
+        WorkManager.getInstance(this).enqueue(workRequest)
+      }
+
+    private fun setWeeklyNotifications(questionnaireId: Int,
                                        dayOfWeek: DayOfWeek, hour: Int, minute:Int) {
-        val pendingIntent: PendingIntent = createNotificationIntent(questionnaireId, questionnaireName, WEEKLY)
-
-        val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-
+        WorkManager.getInstance(this).cancelAllWorkByTag(getQuestionnaireTag(questionnaireId))
 
         val calendar: Calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
@@ -175,19 +180,16 @@ class SetUpNotificationsActivity : AppCompatActivity() {
             calendar.add(Calendar.WEEK_OF_YEAR, 1)
         }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-    }
+        val nextTime = calendar.timeInMillis
+        val now = System.currentTimeMillis()
 
-    private fun createNotificationIntent(
-        questionnaireId: Int,
-        questionnaireName: String,
-        frequency: String
-    ): PendingIntent {
-        val reminderIntent = Intent(this, QuestionnaireReminderReceiver::class.java)
-        reminderIntent.putExtra(QUESTIONNAIRE_ID, questionnaireId)
-        reminderIntent.putExtra(QUESTIONNAIRE_NAME, questionnaireName)
-        reminderIntent.putExtra(NOTIFICATION_FREQUENCY, frequency)
-        return PendingIntent.getBroadcast(this, questionnaireId, reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(Duration.ofDays(7))
+                    .setInputData(workDataOf(QUESTIONNAIRE_ID to questionnaireId))
+            .setInitialDelay(Duration.ofMillis(nextTime - now))
+            .addTag(getQuestionnaireTag(questionnaireId))
+            .build()
+
+        WorkManager.getInstance(this).enqueue(workRequest)
     }
 
     private fun convertDayOfWeek(dayOfWeek: DayOfWeek): Int {

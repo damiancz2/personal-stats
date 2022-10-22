@@ -4,9 +4,11 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import androidx.work.WorkManager
 import com.damiancz2.personalstats.QuestionnaireManager
 import com.damiancz2.personalstats.R
 import com.damiancz2.personalstats.adapter.QuestionnaireAdapter
+import com.damiancz2.personalstats.getQuestionnaireTag
 import com.damiancz2.personalstats.model.Questionnaire
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -30,7 +32,9 @@ class DeleteQuestionnaireDialog(private val questionnaire: Questionnaire,
     }
 
     private fun deleteQuestionnaire() {
-        val resultQuestionnaires = questionnaireManager.deleteQuestionnaire(requireContext(), questionnaire.id)
+        val questionnaireId = questionnaire.id
+        val resultQuestionnaires = questionnaireManager.deleteQuestionnaire(requireContext(), questionnaireId)
+        WorkManager.getInstance(requireContext()).cancelAllWorkByTag(getQuestionnaireTag(questionnaireId))
         adapter.setQuestionnaires(resultQuestionnaires)
     }
 

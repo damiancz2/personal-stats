@@ -8,8 +8,3 @@ const val QUESTIONS = "questions"
 const val INDEX = "index"
 
 const val REMINDERS_CHANNEL_ID = "reminders-channel"
-
-const val NOTIFICATION_FREQUENCY = "notificationFrequency"
-
-const val DAILY = "daily"
-const val WEEKLY = "weekly"
